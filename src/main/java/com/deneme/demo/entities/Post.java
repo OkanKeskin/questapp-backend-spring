@@ -3,8 +3,6 @@ package com.deneme.demo.entities;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,12 +24,13 @@ public class Post {
 	private Long id;
 	
 	// Post objesini çektiğimde hemen user objesini bana getirmene gerek yok = FetchType.LAZY
-	@ManyToOne(fetch = FetchType.LAZY)
+	//FetchType.LAZY ile beraber @JsonIgnore kullanmamız gerekli.
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable=false)
 	//Bir user silindiğinde tüm postlarını sil demek
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	//Serizilationda sıkıntı çıkarılmasın diye/ Bu alanla işimiz yok
-	@JsonIgnore
+	//@JsonIgnore
 	User user;
 	
 	private String title;

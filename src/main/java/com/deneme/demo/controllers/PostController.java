@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deneme.demo.entities.Post;
 import com.deneme.demo.request.PostCreateRequest;
 import com.deneme.demo.request.PostUpdateRequest;
+import com.deneme.demo.responses.PostResponse;
 import com.deneme.demo.services.PostService;
 
 //@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600) //CORS hatasını react projesine açtık
@@ -31,7 +32,7 @@ public class PostController {
 	
 	//Optional parametre gelede bilir gelmeyede bilir = /posts?userId={userId} || /posts
 	@GetMapping
-	public List<Post> getAllPosts(@RequestParam Optional<Long> userId){
+	public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId){
 		return postService.getAllPosts(userId);
 		 
 	}
@@ -56,8 +57,4 @@ public class PostController {
 	public void deleteOnePostById(@PathVariable Long postId) {
 		postService.deleteOnePostById(postId);
 	}
-	
-	
-	
-	
 }

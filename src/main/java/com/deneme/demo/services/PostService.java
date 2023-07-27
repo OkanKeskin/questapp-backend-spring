@@ -2,6 +2,7 @@ package com.deneme.demo.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import com.deneme.demo.entities.User;
 import com.deneme.demo.repos.PostRepository;
 import com.deneme.demo.request.PostCreateRequest;
 import com.deneme.demo.request.PostUpdateRequest;
+import com.deneme.demo.responses.PostResponse;
 
 @Service
 public class PostService {
@@ -21,11 +23,16 @@ public class PostService {
 		this.userService = userService;
 	}
 
-	public List<Post> getAllPosts(Optional<Long> userId) {
+	public List<PostResponse> getAllPosts(Optional<Long> userId) {
+		List<Post> list;
 		if(userId.isPresent()) {
-			return postRepository.findByUserId(userId.get());
+			list =  postRepository.findByUserId(userId.get());
 		}
-		return postRepository.findAll();
+		else {
+			list =  postRepository.findAll();
+		}
+		return list.stream().map(p -> new PostResponse(p)).collect(Collectors.toList());
+		
 	}
 
 	public Post getOnePostById(Long postId) {
