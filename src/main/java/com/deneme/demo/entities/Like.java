@@ -23,19 +23,19 @@ public class Like {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "post_id", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
+	//@JsonIgnor
 	Post post;
 	
 	// Post objesini çektiğimde hemen user objesini bana getirmene gerek yok = FetchType.LAZY
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable=false)
 	//Bir user silindiğinde tüm postlarını sil demek
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	//Serizilationda sıkıntı çıkarılmasın diye/ Bu alanla işimiz yok
-	@JsonIgnore
+	//@JsonIgnore
 	User user;
 
 	public Long getId() {

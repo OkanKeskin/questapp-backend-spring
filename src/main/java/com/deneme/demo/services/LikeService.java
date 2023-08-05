@@ -2,6 +2,7 @@ package com.deneme.demo.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import com.deneme.demo.entities.Post;
 import com.deneme.demo.entities.User;
 import com.deneme.demo.repos.LikeRepository;
 import com.deneme.demo.request.LikeCreateRequest;
+import com.deneme.demo.responses.LikeRespose;
 
 @Service
 public class LikeService {
@@ -24,15 +26,17 @@ public class LikeService {
 		this.userService = userService;
 	}
 
-	public List<Like> getAllLikeWithParam(Optional<Long> userId, Optional<Long> postId) {
+	public List<LikeRespose> getAllLikeWithParam(Optional<Long> userId, Optional<Long> postId) {
+		List<Like> list;
 		if(userId.isPresent() && postId.isPresent())
-			return likeRepository.findByUserIdAndPostId(userId,postId);
+			list = likeRepository.findByUserIdAndPostId(userId,postId);
 		else if(userId.isPresent())
-			return likeRepository.findByUserId(userId);
+			list = likeRepository.findByUserId(userId);
 		else if(postId.isPresent())
-			return likeRepository.findByPostId(postId);
+			list = likeRepository.findByPostId(postId);
 		else
-			return likeRepository.findAll();
+			list = likeRepository.findAll();
+		return list.stream().map(like -> new LikeRespose(like)).collect(Collectors.toList());
 	}
 
 	public Like getOneLikeById(Long likeId) {

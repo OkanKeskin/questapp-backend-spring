@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deneme.demo.entities.Like;
 import com.deneme.demo.request.LikeCreateRequest;
+import com.deneme.demo.responses.LikeRespose;
 import com.deneme.demo.services.LikeService;
 
 @RestController
@@ -27,7 +28,7 @@ public class LikeController {
 	}
 	
 	@GetMapping
-	public List<Like> getAllLikeWithParam(@RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId ){
+	public List<LikeRespose> getAllLikeWithParam(@RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId ){
 		return likeService.getAllLikeWithParam(userId,postId);
 	}
 	

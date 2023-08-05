@@ -36,7 +36,8 @@ public class PostService {
 	}
 
 	public Post getOnePostById(Long postId) {
-		return postRepository.findById(postId).orElse(null);
+		return  postRepository.findById(postId).orElse(null);
+		//return new PostResponse(entity);
 	}
 
 	public Post createOnePost(PostCreateRequest newPostRequest) {
@@ -48,6 +49,7 @@ public class PostService {
 		toSave.setText(newPostRequest.getText());
 		toSave.setTitle(newPostRequest.getTitle());
 		toSave.setUser(user);
+		System.out.println("Yeni bir Post Eklendi");
 		return postRepository.save(toSave);
 	}
 	
@@ -68,8 +70,4 @@ public class PostService {
 	public void deleteOnePostById(Long postId) {
 		postRepository.deleteById(postId);
 	}
-
-	
-	
-	
 }
