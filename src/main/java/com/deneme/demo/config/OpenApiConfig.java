@@ -1,3 +1,5 @@
+//Swagger UI imp.
+
 package com.deneme.demo.config;
 
 import org.springframework.context.annotation.Bean;

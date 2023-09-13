@@ -44,6 +44,12 @@ public class UserController {
 		return userService.getOneUser(userId);
 	}
 	
+	@GetMapping("/deneme")
+	public List<User> getDenemeUser() {
+		//custom exception
+		return userService.getDenemeUser();
+	}
+	
 	//Update 
 	@PutMapping("/{userId}")
 	public User updateOneUser(@PathVariable Long userId, @RequestBody User updateUser) {

@@ -27,6 +27,10 @@ public class UserService {
 	public User getOneUser(Long userId) {
 		return userRepository.findById(userId).orElse(null);
 	}
+	
+	public List<User> getDenemeUser() {
+		return userRepository.findDenemeUser();
+	}
 
 	public User updateOneUser(Long userId, User updateUser) {
 		Optional<User> user = userRepository.findById(userId);
@@ -47,6 +51,12 @@ public class UserService {
 	public void deleteById(Long userId) {
 		userRepository.deleteById(userId);
 	}
+
+	public User getOneByUserName(String userName) {
+		return userRepository.findByUserName(userName);
+	}
+
+	
 	
 	
 }
